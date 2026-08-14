@@ -3,266 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apex Realty | Luxury Real Estate</title>
+    <title>Epic Event Rentals | Instant AI Booking</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
         
         :root {
-            --primary: #0f172a; 
-            --accent: #b45309; 
-            --dark: #020617;
-            --light: #f8fafc;
+            --primary: #8b5cf6; /* Vibrant Purple */
+            --secondary: #f59e0b; /* Bright Yellow/Orange */
+            --dark: #1e1b4b;
+            --light: #f5f3ff;
             --white: #ffffff;
-            --border: #e2e8f0;
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: var(--light); color: var(--dark); overflow-x: hidden; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background: var(--light); color: var(--dark); overflow-x: hidden; }
         
-        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border); }
-        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
-        .logo span { color: var(--accent); }
+        header { background: var(--white); padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 50; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
+        .logo span { color: var(--primary); }
         
-        .dev-btn { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 10px 24px; border-radius: 4px; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .dev-btn { background: var(--light); color: var(--primary); border: 2px solid var(--primary); padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .dev-btn:hover { background: var(--primary); color: var(--white); }
 
-        .hero { 
-            background: linear-gradient(rgba(2, 6, 23, 0.6), rgba(2, 6, 23, 0.8)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1920') center/cover; 
-            color: var(--white); 
-            padding: 160px 20px; 
-            text-align: center; 
-        }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700; margin: 0 0 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero p { font-size: 18px; max-width: 600px; margin: 0 auto 40px; opacity: 0.9; line-height: 1.6; }
+        .hero { background: linear-gradient(rgba(30, 27, 75, 0.8), rgba(30, 27, 75, 0.9)), url('https://images.unsplash.com/photo-1574259392081-dbe3c19cd15e?auto=format&fit=crop&q=80&w=1920') center/cover; color: var(--white); padding: 140px 20px; text-align: center; }
+        .hero h1 { font-size: 56px; font-weight: 800; margin: 0 0 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 20px; max-width: 600px; margin: 0 auto; opacity: 0.9; }
 
         .inventory-section { max-width: 1200px; margin: 80px auto; padding: 0 20px; }
-        .inventory-header { text-align: center; margin-bottom: 60px; }
-        .inventory-header h2 { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--dark); margin-bottom: 15px; }
-        .inventory-header p { color: #64748b; font-size: 16px; }
+        .inventory-header { text-align: center; margin-bottom: 50px; }
+        .inventory-header h2 { font-size: 36px; color: var(--primary); margin-bottom: 10px; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-.property-card { 
-            background: var(--white); 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
-            transition: transform 0.3s, box-shadow 0.3s; 
-            border: 1px solid var(--border); 
-            display: flex; /* NEW: Aligns the card height */
-            flex-direction: column; /* NEW */
-        }
-        .property-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .card-img { height: 240px; background-size: cover; background-position: center; position: relative; }
-        .status-badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: var(--white); padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .card-content { 
-            padding: 30px; 
-            display: flex; /* NEW */
-            flex-direction: column; /* NEW */
-            flex-grow: 1; /* NEW: Forces content to fill available space */
-        }
-        .price { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--primary); font-weight: 700; margin-bottom: 10px; display: block; }
-        .card-content h3 { margin: 0 0 10px; font-size: 20px; font-weight: 600; color: var(--dark); }
-        .card-content p { color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
-        
-        .specs { display: flex; gap: 20px; border-top: 1px solid var(--border); padding-top: 20px; margin-bottom: 25px; }
-        .spec-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #475569; font-weight: 500; }
-        
-        .book-btn { 
-            width: 100%; 
-            background: transparent; 
-            color: var(--primary); 
-            border: 2px solid var(--primary); 
-            padding: 12px; 
-            border-radius: 4px; 
-            font-weight: 600; 
-            font-size: 14px; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            margin-top: auto; /* NEW: Automatically pushes the button to the absolute bottom */
-        }
-        .book-btn:hover { background: var(--primary); color: var(--white); }
-        .chat-toggle { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: var(--primary); color: var(--white); border: none; font-size: 28px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); cursor: pointer; z-index: 100; transition: transform 0.3s; display: flex; align-items: center; justify-content: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); transition: transform 0.3s; border: 2px solid transparent; }
+        .card:hover { transform: translateY(-10px); border-color: var(--secondary); }
+        .card-img { height: 220px; background-size: cover; background-position: center; }
+        .card-content { padding: 30px; }
+        .price-tag { display: inline-block; background: var(--secondary); color: var(--dark); font-weight: 800; padding: 5px 15px; border-radius: 20px; font-size: 14px; margin-bottom: 15px; }
+        .card h3 { margin: 0 0 10px; font-size: 22px; }
+        .card p { color: #6b7280; font-size: 15px; margin-bottom: 20px; }
+        .book-btn { width: 100%; background: var(--primary); color: var(--white); border: none; padding: 12px; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .book-btn:hover { background: #7c3aed; }
+
+        /* Chat Toggle Button */
+        .chat-toggle { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; border-radius: 50%; background: var(--secondary); color: var(--dark); border: none; font-size: 30px; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4); cursor: pointer; z-index: 100; transition: transform 0.3s; display: flex; align-items: center; justify-content: center; }
         .chat-toggle:hover { transform: scale(1.1); }
         .chat-toggle.hidden { transform: scale(0); opacity: 0; pointer-events: none; }
 
-        .chat-container { position: fixed; bottom: 30px; right: 30px; width: 380px; background: var(--white); border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border); z-index: 101; transform: scale(0); transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; pointer-events: none; }
+        /* Floating Chat Widget */
+        .chat-container { position: fixed; bottom: 30px; right: 30px; width: 380px; background: var(--white); border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #e5e7eb; z-index: 101; transform: scale(0); transform-origin: bottom right; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease; opacity: 0; pointer-events: none; }
         .chat-container.open { transform: scale(1); opacity: 1; pointer-events: auto; }
-        .chat-header { background: var(--primary); color: var(--white); padding: 20px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; font-family: 'Playfair Display', serif; font-size: 18px; }
+        .chat-header { background: var(--primary); color: var(--white); padding: 20px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
         .close-chat-btn { background: none; border: none; color: var(--white); font-size: 24px; cursor: pointer; opacity: 0.8; }
-        
-        .chat-box { height: 420px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: #f8fafc; }
-        .msg { max-width: 85%; padding: 14px 18px; border-radius: 12px; font-size: 14px; line-height: 1.5; word-wrap: break-word; }
-        .msg.bot { background: var(--white); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid var(--border); }
+        .close-chat-btn:hover { opacity: 1; }
+        .chat-box { height: 400px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; background: #faf5ff; }
+        .msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.4; word-wrap: break-word; }
+        .msg.bot { background: var(--white); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #ede9fe; }
         .msg.user { background: var(--primary); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
-        .msg.user-img { background: transparent; padding: 0; border-radius: 12px; overflow: hidden; align-self: flex-end; max-width: 60%; }
-        .msg.user-img img { width: 100%; display: block; border-radius: 12px; }
-
-        .time-slot-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 600; transition: all 0.2s; align-self: flex-start; margin-top: 4px; }
-        .time-slot-btn:hover { background: var(--primary); color: var(--white); }
-
-        /* Image Preview Area */
-        .image-preview-container { display: none; padding: 10px 15px; background: #f1f5f9; border-top: 1px solid var(--border); position: relative; }
-        .image-preview-container img { height: 60px; border-radius: 8px; border: 1px solid var(--border); object-fit: cover; }
-        .remove-img-btn { position: absolute; top: 5px; left: 65px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-
-        .chat-input-area { padding: 15px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
-        
-        /* The Paperclip Button */
-        .attach-btn { background: transparent; border: none; color: #64748b; font-size: 20px; cursor: pointer; padding: 5px; transition: color 0.3s; display: flex; align-items: center; justify-content: center; }
-        .attach-btn:hover { color: var(--primary); }
-        #file-input { display: none; }
-
-        input[type="text"] { flex: 1; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; transition: border 0.3s; }
+        .chat-input-area { padding: 15px; background: var(--white); border-top: 1px solid #ede9fe; display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 12px; border: 1px solid #e5e7eb; border-radius: 12px; outline: none; font-family: 'Poppins', sans-serif; }
         input[type="text"]:focus { border-color: var(--primary); }
-        .send-btn { background: var(--accent); color: var(--white); border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: 'Inter', sans-serif; transition: background 0.3s; }
-        .send-btn:hover { background: #92400e; }
+        .send-btn { background: var(--secondary); color: var(--dark); border: none; padding: 0 20px; border-radius: 12px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; }
 
-        .backend-panel { position: fixed; top: 0; left: -650px; width: 600px; height: 100vh; background: var(--dark); color: var(--white); z-index: 200; padding: 40px; box-sizing: border-box; overflow-y: auto; transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 20px 0 50px rgba(0,0,0,0.5); }
+        /* Backend Panel */
+        .backend-panel { position: fixed; top: 0; left: -650px; width: 600px; height: 100vh; background: var(--white); z-index: 200; padding: 40px; box-sizing: border-box; overflow-y: auto; transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 20px 0 50px rgba(0,0,0,0.2); }
         .backend-panel.open { left: 0; }
-        .panel-close-btn { position: absolute; top: 30px; right: 30px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--white); opacity: 0.7; }
-        .panel-close-btn:hover { opacity: 1; }
-        .backend-panel h2 { font-family: 'Playfair Display', serif; margin-top: 0; color: var(--accent); font-size: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-        .iframe-container { margin-bottom: 35px; border-radius: 8px; overflow: hidden; height: 350px; background: var(--white); }
+        .panel-close-btn { position: absolute; top: 30px; right: 30px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--dark); }
+        .iframe-container { margin-bottom: 30px; border-radius: 12px; overflow: hidden; height: 350px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; }
         .iframe-container iframe { width: 100%; height: 100%; border: none; }
-        .panel-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1.5px; }
-
-        footer { background: var(--white); border-top: 1px solid var(--border); padding: 30px 60px; text-align: center; color: #64748b; font-size: 14px; }
-
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            .hero { padding: 100px 20px; }
-            .hero h1 { font-size: 40px; }
-            .backend-panel { width: 100%; left: -100%; padding: 20px; }
-            .chat-container { width: calc(100% - 40px); right: 20px; bottom: 20px; }
-            .chat-toggle { bottom: 20px; right: 20px; }
-        }
+        .panel-label { font-size: 12px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 1px; }
+        
+        .stripe-alert { background: #ecfdf5; border: 1px solid #10b981; color: #047857; padding: 15px; border-radius: 12px; display: none; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
+    <!-- Backend Dev Panel -->
     <div class="backend-panel" id="backendPanel">
         <button class="panel-close-btn" onclick="toggleBackend()">×</button>
-        <h2>Apex Live CRM</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 30px; line-height: 1.6;">Live telemetry monitoring leads captured natively from the website widget.</p>
+        <h2 style="margin-top:0; color: var(--dark);">⚙️ Inventory Control Room</h2>
+        <p style="color: #6b7280; font-size: 14px; margin-bottom: 30px;">The AI reads this live Google Calendar to prevent double-bookings, then issues Stripe links automatically.</p>
+        
+        <div class="stripe-alert" id="stripeAlert">
+            💳 STRIPE CHECKOUT INITIATED: The AI just deployed a live payment link for the customer.
+        </div>
 
-        <span class="panel-label">Live Lead Database</span>
+        <span class="panel-label">Live Inventory Calendar</span>
+        <div class="iframe-container">
+            <iframe src="https://calendar.google.com/calendar/embed?src=sakuramisakikawaii%40gmail.com&ctz=Asia%2FManila&mode=WEEK"></iframe>
+        </div>
+
+        <span class="panel-label">Lead Database</span>
         <div class="iframe-container">
             <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2No54tpOdLhI3xUyJf0few-si1qAvoKpib1KIuZM7AlQiJElqZCGtOXKL1PQQqC1vtlB3IyA4wdmW/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
         </div>
-
-        <span class="panel-label">Master Viewing Calendar</span>
-        <div class="iframe-container">
-            <iframe src="https://calendar.google.com/calendar/embed?src=sakuramisakikawaii%40gmail.com&ctz=America%2FLos_Angeles&mode=WEEK"></iframe>
-        </div>
     </div>
 
+    <!-- Header -->
     <header>
-        <div class="logo">Apex <span>Realty</span></div>
-        <button class="dev-btn" onclick="toggleBackend()">Access CRM (Dev)</button>
+        <div class="logo">Epic <span>Events</span></div>
+        <button class="dev-btn" onclick="toggleBackend()">View Backend (Dev Mode)</button>
     </header>
 
+    <!-- Hero -->
     <section class="hero">
-        <h1>Find Your Luxury Estate.</h1>
-        <p>Chat with our AI Assistant to instantly check availability, view property details, upload documents, and book your personal viewing schedule.</p>
+        <h1>Turn Your Backyard Into A Bash.</h1>
+        <p>Chat with our AI to check live calendar availability and book your bounce house instantly.</p>
     </section>
 
+    <!-- Inventory -->
     <section class="inventory-section">
         <div class="inventory-header">
-            <h2>Featured Properties</h2>
-            <p>Live inventory seamlessly synced with our master database.</p>
+            <h2>Current Inventory</h2>
+            <p style="color: #6b7280;">Inventory syncs directly with our Google Calendar.</p>
         </div>
-        
         <div class="grid">
-            <div class="property-card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=600');">
-                    <div class="status-badge">For Sale</div>
-                </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?auto=format&fit=crop&q=80&w=600');"></div>
                 <div class="card-content">
-                    <span class="price">$1,500,000</span>
-                    <h3>4500 Pine St, Beverly Hills</h3>
-                    <p>Modern family home located in a prime neighborhood. Features a spacious living area and smart-home integration.</p>
-                    <div class="specs">
-                        <div class="spec-item">🛏️ 4 Beds</div>
-                        <div class="spec-item">🛁 3 Baths</div>
-                    </div>
-                    <button class="book-btn" onclick="openChatWithPrefill('I want to schedule a viewing for 4500 Pine St')">Schedule Viewing</button>
+                    <span class="price-tag">$150 / day</span>
+                    <h3>Classic Castle</h3>
+                    <p>Perfect for birthdays and block parties. Standard 15x15 footprint.</p>
+                    <button class="book-btn" onclick="openChatWithPrefill('I want to book the Classic Castle')">Check Availability &rarr;</button>
                 </div>
             </div>
-
-            <div class="property-card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=600');">
-                    <div class="status-badge" style="background: var(--primary);">For Rent</div>
-                </div>
+            <div class="card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1563823250269-826d15a5bb1d?auto=format&fit=crop&q=80&w=600');"></div>
                 <div class="card-content">
-                    <span class="price">$8,500 / mo</span>
-                    <h3>1200 Ocean Ave, Santa Monica</h3>
-                    <p>Fully furnished exclusive coastal rental. Wake up to ocean views and private beach access.</p>
-                    <div class="specs">
-                        <div class="spec-item">🛏️ 2 Beds</div>
-                        <div class="spec-item">🛁 2 Baths</div>
-                    </div>
-                    <button class="book-btn" onclick="openChatWithPrefill('Is the Ocean Ave rental available?')">Inquire Now</button>
-                </div>
-            </div>
-            
-            <div class="property-card">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1613490908578-19c02340e104?auto=format&fit=crop&q=80&w=600');">
-                    <div class="status-badge">For Sale</div>
-                </div>
-                <div class="card-content">
-                    <span class="price">$3,200,000</span>
-                    <h3>789 Sunset Blvd, Malibu</h3>
-                    <p>Breathtaking architectural masterpiece featuring floor-to-ceiling windows and an infinity pool.</p>
-                    <div class="specs">
-                        <div class="spec-item">🛏️ 5 Beds</div>
-                        <div class="spec-item">🛁 4 Baths</div>
-                    </div>
-                    <button class="book-btn" onclick="openChatWithPrefill('Can I view 789 Sunset Blvd?')">Schedule Viewing</button>
+                    <span class="price-tag">$250 / day</span>
+                    <h3>Tropical Slide</h3>
+                    <p>Beat the heat with this 18-foot inflatable water slide.</p>
+                    <button class="book-btn" onclick="openChatWithPrefill('I want to book the Tropical Slide')">Check Availability &rarr;</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        Powered by Apex Realty AI Automation.
-    </footer>
-
-    <button class="chat-toggle" id="chatToggleBtn" onclick="toggleChat()">💬</button>
+    <!-- Chat Widget -->
+    <button class="chat-toggle" id="chatToggleBtn" onclick="toggleChat()">🎈</button>
 
     <div class="chat-container" id="chatContainer">
         <div class="chat-header">
-            Sarah | Apex AI
+            Epic Events AI Booking
             <button class="close-chat-btn" onclick="toggleChat()">×</button>
         </div>
         <div class="chat-box" id="chat-box">
-            <div class="msg bot">Hi there! 👋 I'm Sarah with Apex Realty. Are you looking to buy or rent a property today?</div>
+            <div class="msg bot">Hi! Ready to party? Let me know what you want to rent and for what date, and I'll check our live inventory!</div>
         </div>
-        
-        <!-- Image Preview Area -->
-        <div class="image-preview-container" id="image-preview-container">
-            <img src="" id="image-preview-img" alt="Preview">
-            <button class="remove-img-btn" onclick="removeImage()">×</button>
-        </div>
-
         <div class="chat-input-area">
-            <!-- File Upload Icon -->
-            <button class="attach-btn" onclick="document.getElementById('file-input').click()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
-            </button>
-            <input type="file" id="file-input" accept="image/*">
-            
-            <input type="text" id="user-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <input type="text" id="user-input" placeholder="Type here..." onkeypress="handleKeyPress(event)">
             <button class="send-btn" id="send-btn" onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
-        // --- YOUR CLOUDFLARE URL POINTING TO THE NEW WEBHOOK PATH ---
-        const N8N_WEBHOOK_URL = "https://birds-withdrawal-unlike-development.trycloudflare.com/webhook/apex-web-hub"; 
-        
-        let currentImageBase64 = "";
+        // --- YOUR CLOUDFLARE URL POINTING TO THE NEW PARTY RENTAL WEBHOOK ---
+        const N8N_WEBHOOK_URL = "https://helper-rubbing-refrain.ngrok-free.dev/webhook/party-rental-chat";
 
         function toggleBackend() {
             document.getElementById('backendPanel').classList.toggle('open');
@@ -288,106 +182,56 @@
             input.focus();
         }
 
-        // Handle Image Selection and Conversion
-        document.getElementById('file-input').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                currentImageBase64 = event.target.result;
-                document.getElementById('image-preview-container').style.display = 'block';
-                document.getElementById('image-preview-img').src = currentImageBase64;
-                document.getElementById('user-input').focus();
-            };
-            reader.readAsDataURL(file);
-        });
-
-        function removeImage() {
-            currentImageBase64 = "";
-            document.getElementById('image-preview-container').style.display = 'none';
-            document.getElementById('file-input').value = "";
-        }
-
         const sessionId = "session_" + Math.floor(Math.random() * 1000000000);
         const chatBox = document.getElementById("chat-box");
         const userInput = document.getElementById("user-input");
         const sendBtn = document.getElementById("send-btn");
 
-        function appendMessage(text, sender) {
+            function appendMessage(text, sender) {
             const msgDiv = document.createElement("div");
             msgDiv.className = `msg ${sender}`;
+            
+            // Transform Stripe links into a sleek popup window instead of a new tab
+            if(text.includes('stripe.com')) {
+                text = text.replace(/(https:\/\/(buy|book)\.stripe\.com\/[^\s]+)/g, '<a href="#" onclick="window.open(\'$1\', \'StripeCheckout\', \'width=450,height=750,top=100,left=100,resizable=yes,scrollbars=yes\'); return false;" style="color:var(--primary); font-weight:bold; text-decoration:underline; cursor:pointer;">Click Here to Pay via Stripe &rarr;</a>');
+            }
+            
             msgDiv.innerHTML = text; 
             chatBox.appendChild(msgDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        function appendImageMessage(base64Str) {
-            const msgDiv = document.createElement("div");
-            msgDiv.className = `msg user-img`;
-            msgDiv.innerHTML = `<img src="${base64Str}">`; 
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function appendButtons(buttonsArray) {
-            if (!buttonsArray || buttonsArray.length === 0) return;
-            const container = document.createElement("div");
-            container.style.display = "flex";
-            container.style.flexDirection = "column";
-            container.style.gap = "8px";
-            container.style.marginTop = "5px";
-            
-            buttonsArray.forEach(btnText => {
-                const btn = document.createElement("button");
-                btn.className = "time-slot-btn";
-                btn.innerText = btnText;
-                btn.onclick = () => {
-                    container.style.display = "none";
-                    userInput.value = btnText;
-                    sendMessage();
-                };
-                container.appendChild(btn);
-            });
-            chatBox.appendChild(container);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
         async function sendMessage() {
             const text = userInput.value.trim();
-            if (!text && !currentImageBase64) return;
+            if (!text) return;
 
-            // Render to chat box immediately
-            if (currentImageBase64) appendImageMessage(currentImageBase64);
-            if (text) appendMessage(text, "user");
-
-            // Save variables before clearing inputs
-            const payloadText = text;
-            const payloadImage = currentImageBase64;
-
-            // Clear inputs and lock button
+            appendMessage(text, "user");
             userInput.value = "";
-            removeImage();
             userInput.disabled = true;
             sendBtn.disabled = true;
             sendBtn.innerText = "...";
 
             try {
-                const response = await fetch(N8N_WEBHOOK_URL, {
+                    const response = await fetch(N8N_WEBHOOK_URL, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        sessionId: sessionId, 
-                        message: payloadText,
-                        image_url: payloadImage 
-                    })
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "ngrok-skip-browser-warning": "true" 
+                    },
+                    body: JSON.stringify({ sessionId: sessionId, message: text })
                 });
 
                 const data = await response.json();
-                appendMessage(data.text || "Sorry, I encountered an error.", "bot");
                 
-                if (data.buttons) {
-                    appendButtons(data.buttons);
+                appendMessage(data.text || "Sorry, I encountered an error.", "bot");
+
+                // If AI deployed the Stripe link, show the green alert in the Dev Panel
+                if(data.ready_to_pay === true || data.ready_to_pay === "true") {
+                    document.getElementById("stripeAlert").style.display = "block";
+                    const panel = document.getElementById("backendPanel");
+                    if (!panel.classList.contains("open")) {
+                        panel.classList.add("open");
+                    }
                 }
 
             } catch (error) {
