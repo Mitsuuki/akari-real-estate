@@ -40,15 +40,15 @@
         .inventory-header p { color: #64748b; font-size: 16px; }
         
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-.property-card { 
+        .property-card { 
             background: var(--white); 
             border-radius: 12px; 
             overflow: hidden; 
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
             transition: transform 0.3s, box-shadow 0.3s; 
             border: 1px solid var(--border); 
-            display: flex; /* NEW: Aligns the card height */
-            flex-direction: column; /* NEW */
+            display: flex;
+            flex-direction: column; 
         }
         .property-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
         .card-img { height: 240px; background-size: cover; background-position: center; position: relative; }
@@ -56,9 +56,9 @@
         
         .card-content { 
             padding: 30px; 
-            display: flex; /* NEW */
-            flex-direction: column; /* NEW */
-            flex-grow: 1; /* NEW: Forces content to fill available space */
+            display: flex; 
+            flex-direction: column; 
+            flex-grow: 1; 
         }
         .price { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--primary); font-weight: 700; margin-bottom: 10px; display: block; }
         .card-content h3 { margin: 0 0 10px; font-size: 20px; font-weight: 600; color: var(--dark); }
@@ -80,9 +80,32 @@
             transition: 0.3s; 
             text-transform: uppercase; 
             letter-spacing: 1px; 
-            margin-top: auto; /* NEW: Automatically pushes the button to the absolute bottom */
+            margin-top: auto; 
         }
         .book-btn:hover { background: var(--primary); color: var(--white); }
+
+        /* Integration Section */
+        .integration-section {
+            background: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        .integration-content { max-width: 800px; margin: 0 auto; }
+        .integration-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--primary); margin-bottom: 15px; }
+        .integration-content p { color: #64748b; font-size: 16px; margin-bottom: 40px; line-height: 1.6; }
+        
+        .social-icons { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .social-icon-box { display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--dark); font-weight: 600; font-size: 14px; transition: transform 0.3s; }
+        .social-icon-box:hover { transform: translateY(-5px); }
+        .social-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--light); border: 1px solid var(--border); transition: all 0.3s; }
+        
+        /* Brand Colors on Hover */
+        .social-icon-box.messenger:hover .social-icon { background: #e0f2fe; color: #0ea5e9; border-color: #0ea5e9; }
+        .social-icon-box.instagram:hover .social-icon { background: #fce7f3; color: #db2777; border-color: #db2777; }
+        .social-icon-box.whatsapp:hover .social-icon { background: #dcfce7; color: #10b981; border-color: #10b981; }
+        .social-icon-box.sms:hover .social-icon { background: #f3f4f6; color: #475569; border-color: #475569; }
+
         .chat-toggle { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: var(--primary); color: var(--white); border: none; font-size: 28px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); cursor: pointer; z-index: 100; transition: transform 0.3s; display: flex; align-items: center; justify-content: center; }
         .chat-toggle:hover { transform: scale(1.1); }
         .chat-toggle.hidden { transform: scale(0); opacity: 0; pointer-events: none; }
@@ -102,14 +125,12 @@
         .time-slot-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 600; transition: all 0.2s; align-self: flex-start; margin-top: 4px; }
         .time-slot-btn:hover { background: var(--primary); color: var(--white); }
 
-        /* Image Preview Area */
         .image-preview-container { display: none; padding: 10px 15px; background: #f1f5f9; border-top: 1px solid var(--border); position: relative; }
         .image-preview-container img { height: 60px; border-radius: 8px; border: 1px solid var(--border); object-fit: cover; }
         .remove-img-btn { position: absolute; top: 5px; left: 65px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
         .chat-input-area { padding: 15px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
         
-        /* The Paperclip Button */
         .attach-btn { background: transparent; border: none; color: #64748b; font-size: 20px; cursor: pointer; padding: 5px; transition: color 0.3s; display: flex; align-items: center; justify-content: center; }
         .attach-btn:hover { color: var(--primary); }
         #file-input { display: none; }
@@ -225,6 +246,44 @@
         </div>
     </section>
 
+    <!-- NEW OMNICHANNEL INTEGRATION BANNER -->
+    <section class="integration-section">
+        <div class="integration-content">
+            <h2>Omnichannel Deployment</h2>
+            <p>Our AI doesn't just live on your website. Capture leads automatically 24/7 across your favorite social channels and messaging platforms. One AI brain, everywhere your customers are.</p>
+            
+            <div class="social-icons">
+                <div class="social-icon-box messenger">
+                    <div class="social-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.153 9.769c0-5.385-4.308-9.769-9.615-9.769-5.308 0-9.615 4.384-9.615 9.769 0 3.077 1.538 5.769 4 7.538v3.462l3.692-2c1.692.615 3.538.923 5.538.923 5.308 0 9.615-4.384 9.615-9.769z"></path><path d="M12.462 12.385l-2.769-3.077-5.538 3.077 6.154-6.462 2.769 3.077 5.538-3.077-6.154 6.462z"></path></svg>
+                    </div>
+                    Messenger
+                </div>
+                
+                <div class="social-icon-box instagram">
+                    <div class="social-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </div>
+                    Instagram
+                </div>
+                
+                <div class="social-icon-box whatsapp">
+                    <div class="social-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </div>
+                    WhatsApp
+                </div>
+
+                <div class="social-icon-box sms">
+                    <div class="social-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    SMS / Text
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         Powered by Apex Realty AI Automation.
     </footer>
@@ -240,14 +299,12 @@
             <div class="msg bot">Hi there! 👋 I'm Sarah with Apex Realty. Are you looking to buy or rent a property today?</div>
         </div>
         
-        <!-- Image Preview Area -->
         <div class="image-preview-container" id="image-preview-container">
             <img src="" id="image-preview-img" alt="Preview">
             <button class="remove-img-btn" onclick="removeImage()">×</button>
         </div>
 
         <div class="chat-input-area">
-            <!-- File Upload Icon -->
             <button class="attach-btn" onclick="document.getElementById('file-input').click()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
             </button>
@@ -259,10 +316,11 @@
     </div>
 
     <script>
-        // --- YOUR CLOUDFLARE URL POINTING TO THE NEW WEBHOOK PATH ---
+        // --- YOUR NGROK URL ---
         const N8N_WEBHOOK_URL = "https://helper-rubbing-refrain.ngrok-free.dev/webhook/apex-web-hub";
 
         let currentImageBase64 = "";
+        let isSending = false; // THE MASTER LOCK TO PREVENT DOUBLE-ENTRIES!
 
         function toggleBackend() {
             document.getElementById('backendPanel').classList.toggle('open');
@@ -288,7 +346,6 @@
             input.focus();
         }
 
-        // Handle Image Selection and Conversion
         document.getElementById('file-input').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -354,18 +411,21 @@
         }
 
         async function sendMessage() {
+            // STOP THE RACE CONDITION!
+            if (isSending) return;
+
             const text = userInput.value.trim();
             if (!text && !currentImageBase64) return;
 
-            // Render to chat box immediately
+            // LOCK THE BUTTON
+            isSending = true;
+
             if (currentImageBase64) appendImageMessage(currentImageBase64);
             if (text) appendMessage(text, "user");
 
-            // Save variables before clearing inputs
             const payloadText = text;
             const payloadImage = currentImageBase64;
 
-            // Clear inputs and lock button
             userInput.value = "";
             removeImage();
             userInput.disabled = true;
@@ -373,7 +433,7 @@
             sendBtn.innerText = "...";
 
             try {
-                    const response = await fetch(N8N_WEBHOOK_URL, {
+                const response = await fetch(N8N_WEBHOOK_URL, {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",
@@ -400,6 +460,9 @@
                 sendBtn.disabled = false;
                 sendBtn.innerText = "Send";
                 userInput.focus();
+                
+                // UNLOCK AFTER AI IS DONE
+                isSending = false; 
             }
         }
 
