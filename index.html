@@ -9,13 +9,19 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     
-    <title>Luxury Real Estate | AI Agent Demo</title>
+    <!-- Meta Tags for iMessage/WhatsApp Link Sharing Preview -->
+    <title>AI Automation | Live Demo Portal</title>
+    <meta property="og:title" content="AI Automation | Live Demo Portal">
+    <meta property="og:description" content="Test our conversational AI, CRM integrations, and automated dispatch workflows.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1200">
+    <meta property="og:type" content="website">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap');
         
         :root {
             --primary: #0f172a; 
-            --accent: #b45309; /* Luxury Gold */
+            --accent: #b45309; 
             --accent-light: #fef3c7;
             --dark: #020617;
             --light: #f8fafc;
@@ -25,28 +31,27 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: var(--light); color: var(--dark); overflow-x: hidden; scroll-behavior: smooth; }
         
-        /* Premium Header */
-        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;}
-        .logo span { color: var(--accent); }
-        
-        .header-actions { display: flex; gap: 20px; align-items: center; }
-        .agent-phone { font-weight: 600; color: #475569; font-size: 15px; }
-        .dev-btn { background: transparent; color: var(--primary); border: 1px solid var(--primary); padding: 10px 24px; border-radius: 4px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .dev-btn:hover { background: var(--primary); color: var(--white); }
-
-        /* Cinematic Hero */
-        .hero { 
-            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.9)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1920') center/cover fixed; 
-            color: var(--white); 
-            padding: 180px 20px 140px; 
-            text-align: center; 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .hero-badge { display: inline-block; background: rgba(180, 83, 9, 0.2); border: 1px solid var(--accent); color: var(--accent-light); padding: 6px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; backdrop-filter: blur(4px); }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 700; margin: 0 0 24px; text-shadow: 0 4px 12px rgba(0,0,0,0.5); line-height: 1.1; }
-        .hero p { font-size: 18px; max-width: 650px; margin: 0 auto 40px; opacity: 0.9; line-height: 1.7; font-weight: 300; }
 
-        /* Feature Highlights */
+        header { padding: 30px 50px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 50; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; color: var(--white); }
+        .logo svg { width: 28px; height: 28px; color: var(--accent-1); }
+        .logo span { color: #3b82f6; }
+        
+        .partner-badge { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
+        .dev-btn { background: transparent; color: var(--white); border: 1px solid var(--white); padding: 10px 24px; border-radius: 4px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .dev-btn:hover { background: var(--white); color: var(--primary); }
+
+        .hero { padding: 90px 20px 70px; text-align: center; max-width: 850px; margin: 0 auto; position: relative; }
+        .hero-badge { display: inline-block; background: rgba(180, 83, 9, 0.2); border: 1px solid var(--accent); color: var(--accent-light); padding: 6px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; backdrop-filter: blur(4px); }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 800; margin: 0 0 20px; line-height: 1.2; letter-spacing: -1px; }
+        .hero p { font-size: 19px; color: var(--text-muted); margin: 0; }
+
         .features-section { background: var(--white); padding: 80px 20px; border-bottom: 1px solid var(--border); }
         .features-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
         .feature-card { text-align: center; padding: 20px; }
@@ -54,7 +59,6 @@
         .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; margin: 0 0 10px; color: var(--primary); }
         .feature-card p { color: #64748b; font-size: 15px; line-height: 1.6; margin: 0; }
 
-        /* Inventory Grid */
         .inventory-section { background: var(--light); max-width: 1200px; margin: 80px auto; padding: 0 20px; }
         .inventory-header { text-align: center; margin-bottom: 60px; }
         .inventory-header h2 { font-family: 'Playfair Display', serif; font-size: 44px; color: var(--dark); margin-bottom: 15px; }
@@ -66,21 +70,18 @@
         .card-img { height: 260px; background-size: cover; background-position: center; position: relative; transition: transform 0.5s ease; }
         .property-card:hover .card-img { transform: scale(1.05); }
         .img-wrapper { overflow: hidden; height: 260px; }
-        
         .status-badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: var(--white); padding: 6px 14px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; z-index: 2; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         
         .card-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; position: relative; z-index: 2; background: var(--white); }
         .price { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--primary); font-weight: 700; margin-bottom: 12px; display: block; }
         .card-content h3 { margin: 0 0 10px; font-size: 18px; font-weight: 600; color: var(--dark); line-height: 1.4; }
         .card-content p { color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 25px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        
         .specs { display: flex; gap: 20px; border-top: 1px solid var(--border); padding-top: 20px; margin-bottom: 25px; }
         .spec-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #475569; font-weight: 600; }
         
         .book-btn { width: 100%; background: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 14px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1.5px; margin-top: auto; }
         .book-btn:hover { background: var(--primary); color: var(--white); }
 
-        /* NEW Omnichannel Integration Banner */
         .integration-section { background: var(--white); padding: 100px 20px; text-align: center; border-top: 1px solid var(--border); }
         .integration-content { max-width: 800px; margin: 0 auto; }
         .integration-content h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--primary); margin-bottom: 15px; }
@@ -96,7 +97,6 @@
         .social-icon-box.whatsapp:hover .social-icon { background: #dcfce7; color: #10b981; border-color: #10b981; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
         .social-icon-box.sms:hover .social-icon { background: #f3f4f6; color: #475569; border-color: #475569; box-shadow: 0 10px 20px rgba(71, 85, 105, 0.2); }
 
-        /* Polished Chat UI */
         .chat-toggle { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; border-radius: 50%; background: var(--primary); color: var(--white); border: none; font-size: 28px; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4); cursor: pointer; z-index: 100; transition: transform 0.3s; display: flex; align-items: center; justify-content: center; }
         .chat-toggle:hover { transform: scale(1.1); }
         .chat-toggle.hidden { transform: scale(0); opacity: 0; pointer-events: none; }
@@ -120,21 +120,43 @@
         .time-slot-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 10px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 600; transition: all 0.2s; align-self: flex-start; margin-top: 4px; }
         .time-slot-btn:hover { background: var(--primary); color: var(--white); }
 
+        /* NEW Animated Typing Indicator */
+        .typing-indicator { display: none; align-items: center; gap: 4px; padding: 14px 18px; width: fit-content; background: var(--white); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid var(--border); border-radius: 12px;}
+        .typing-indicator span { display: block; width: 6px; height: 6px; background-color: #94a3b8; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
         .image-preview-container { display: none; padding: 10px 15px; background: #f1f5f9; border-top: 1px solid var(--border); position: relative; }
         .image-preview-container img { height: 60px; border-radius: 8px; border: 1px solid var(--border); object-fit: cover; }
         .remove-img-btn { position: absolute; top: 5px; left: 65px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .chat-input-area { padding: 15px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
-        .attach-btn { background: transparent; border: none; color: #64748b; font-size: 20px; cursor: pointer; padding: 5px; transition: color 0.3s; display: flex; align-items: center; justify-content: center; }
+        /* NEW Auto-expanding Input Box Area */
+        .chat-input-area { padding: 15px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-end; }
+        .attach-btn { background: transparent; border: none; color: #64748b; font-size: 20px; cursor: pointer; padding: 5px; transition: color 0.3s; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; }
         .attach-btn:hover { color: var(--primary); }
         #file-input { display: none; }
 
-        input[type="text"] { flex: 1; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; transition: border 0.3s; }
-        input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1); }
-        .send-btn { background: var(--accent); color: var(--white); border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: 'Inter', sans-serif; transition: background 0.3s; }
+        textarea#user-input { 
+            flex: 1; 
+            padding: 12px 16px; 
+            border: 1px solid var(--border); 
+            border-radius: 8px; 
+            outline: none; 
+            font-family: 'Inter', sans-serif; 
+            font-size: 14px; 
+            transition: border 0.3s; 
+            resize: none; 
+            max-height: 120px; /* Expands up to this height before scrolling */
+            min-height: 20px;
+            box-sizing: border-box;
+            overflow-y: hidden;
+            line-height: 1.5;
+        }
+        textarea#user-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1); }
+        .send-btn { background: var(--accent); color: var(--white); border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: 'Inter', sans-serif; transition: background 0.3s; margin-bottom: 2px; height: 44px; display: flex; align-items: center; justify-content: center;}
         .send-btn:hover { background: #92400e; }
 
-        /* Backend Dev Panel */
         .backend-panel { position: fixed; top: 0; left: -650px; width: 600px; height: 100vh; background: var(--dark); color: var(--white); z-index: 200; padding: 40px; box-sizing: border-box; overflow-y: auto; transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 20px 0 50px rgba(0,0,0,0.5); }
         .backend-panel.open { left: 0; }
         .panel-close-btn { position: absolute; top: 30px; right: 30px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--white); opacity: 0.7; }
@@ -148,7 +170,6 @@
 
         @media (max-width: 768px) {
             header { padding: 15px 20px; }
-            .header-actions .agent-phone { display: none; }
             .hero { padding: 120px 20px 80px; }
             .hero h1 { font-size: 40px; }
             .backend-panel { width: 100%; left: -100%; padding: 20px; }
@@ -179,9 +200,11 @@
     </div>
 
     <header>
-        <div class="logo">Real <span>Estate</span></div>
+        <div class="logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            AI <span>Solutions</span>
+        </div>
         <div class="header-actions">
-            <span class="agent-phone">Questions? (310) 555-0199</span>
             <button class="dev-btn" onclick="toggleBackend()">Access CRM</button>
         </div>
     </header>
@@ -192,7 +215,6 @@
         <p>Test the industry's most advanced conversational AI. Sarah instantly qualifies leads, checks inventory, and books showings directly to your Google Calendar.</p>
     </section>
 
-    <!-- NEW Features Section to highlight agent benefits -->
     <section class="features-section">
         <div class="features-grid">
             <div class="feature-card">
@@ -258,7 +280,8 @@
             
             <div class="property-card">
                 <div class="img-wrapper">
-                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1613490908578-19c02340e104?auto=format&fit=crop&q=80&w=600');">
+                    <!-- FIXED BROKEN IMAGE LINK -->
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600');">
                         <div class="status-badge">For Sale</div>
                     </div>
                 </div>
@@ -328,8 +351,14 @@
             </div>
             <button class="close-chat-btn" onclick="toggleChat()">×</button>
         </div>
+        
         <div class="chat-box" id="chat-box">
             <div class="msg bot">Hi there! 👋 I'm Sarah. Are you looking to buy or rent a property today?</div>
+            
+            <!-- NEW Animated Typing Indicator -->
+            <div id="typing-indicator" class="typing-indicator">
+                <span></span><span></span><span></span>
+            </div>
         </div>
         
         <div class="image-preview-container" id="image-preview-container">
@@ -343,7 +372,8 @@
             </button>
             <input type="file" id="file-input" accept="image/*">
             
-            <input type="text" id="user-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <!-- NEW Auto-expanding Textarea -->
+            <textarea id="user-input" rows="1" placeholder="Type your message..." onkeydown="handleKeyPress(event)"></textarea>
             <button class="send-btn" id="send-btn" onclick="sendMessage()">Send</button>
         </div>
     </div>
@@ -376,8 +406,20 @@
             toggleBtn.classList.add('hidden');
             const input = document.getElementById('user-input');
             input.value = text;
+            
+            // Auto-resize textarea logic applied to prefill
+            input.style.height = "auto";
+            input.style.height = (input.scrollHeight) + "px";
+            
             input.focus();
         }
+
+        // Auto-expanding textarea logic
+        const userInput = document.getElementById("user-input");
+        userInput.addEventListener("input", function() {
+            this.style.height = "auto";
+            this.style.height = (this.scrollHeight) + "px";
+        });
 
         document.getElementById('file-input').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -401,14 +443,15 @@
 
         const sessionId = "session_" + Math.floor(Math.random() * 1000000000);
         const chatBox = document.getElementById("chat-box");
-        const userInput = document.getElementById("user-input");
         const sendBtn = document.getElementById("send-btn");
+        const typingIndicator = document.getElementById("typing-indicator");
 
         function appendMessage(text, sender) {
             const msgDiv = document.createElement("div");
             msgDiv.className = `msg ${sender}`;
             msgDiv.innerHTML = text; 
-            chatBox.appendChild(msgDiv);
+            // Insert before typing indicator so dots stay at the bottom
+            chatBox.insertBefore(msgDiv, typingIndicator);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
@@ -416,7 +459,7 @@
             const msgDiv = document.createElement("div");
             msgDiv.className = `msg user-img`;
             msgDiv.innerHTML = `<img src="${base64Str}">`; 
-            chatBox.appendChild(msgDiv);
+            chatBox.insertBefore(msgDiv, typingIndicator);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
@@ -435,12 +478,22 @@
                 btn.onclick = () => {
                     container.style.display = "none";
                     userInput.value = btnText;
+                    userInput.style.height = "auto";
                     sendMessage();
                 };
                 container.appendChild(btn);
             });
-            chatBox.appendChild(container);
+            chatBox.insertBefore(container, typingIndicator);
             chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function showTyping() {
+            typingIndicator.style.display = "flex";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function hideTyping() {
+            typingIndicator.style.display = "none";
         }
 
         async function sendMessage() {
@@ -457,11 +510,15 @@
             const payloadText = text;
             const payloadImage = currentImageBase64;
 
+            // Reset input and block
             userInput.value = "";
+            userInput.style.height = "auto";
             removeImage();
             userInput.disabled = true;
             sendBtn.disabled = true;
-            sendBtn.innerText = "...";
+            
+            // Show bouncing dots
+            showTyping();
 
             try {
                 const response = await fetch(N8N_WEBHOOK_URL, {
@@ -478,6 +535,7 @@
                 });
 
                 const data = await response.json();
+                hideTyping();
                 appendMessage(data.text || "Sorry, I encountered an error.", "bot");
                 
                 if (data.buttons) {
@@ -485,11 +543,11 @@
                 }
 
             } catch (error) {
+                hideTyping();
                 appendMessage("System offline. Could not connect to backend.", "bot");
             } finally {
                 userInput.disabled = false;
                 sendBtn.disabled = false;
-                sendBtn.innerText = "Send";
                 userInput.focus();
                 
                 isSending = false; 
@@ -497,7 +555,11 @@
         }
 
         function handleKeyPress(e) {
-            if (e.key === "Enter") sendMessage();
+            // Allows Shift+Enter for new line, regular Enter sends message
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
         }
     </script>
 </body>
