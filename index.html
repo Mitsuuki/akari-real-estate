@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apex Realty | Luxury Real Estate</title>
+    
+    <!-- CACHE BUSTING TAGS TO FORCE GITHUB & BROWSERS TO REFRESH -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>Luxury Real Estate | AI Agent Demo</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
         
@@ -165,12 +171,12 @@
 
     <div class="backend-panel" id="backendPanel">
         <button class="panel-close-btn" onclick="toggleBackend()">×</button>
-        <h2>Apex Live CRM</h2>
+        <h2>Live CRM Portal</h2>
         <p style="color: #94a3b8; font-size: 14px; margin-bottom: 30px; line-height: 1.6;">Live telemetry monitoring leads captured natively from the website widget.</p>
 
         <span class="panel-label">Live Lead Database</span>
         <div class="iframe-container">
-            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2No54tpOdLhI3xUyJf0few-si1qAvoKpib1KIuZM7AlQiJElqZCGtOXKL1PQQqC1vtlB3IyA4wdmW/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+           <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2No54tpOdLhI3xUyJf0few-si1qAvoKpib1KIuZM7AlQiJElqZCGtOXKL1PQQqC1vtlB3IyA4wdmW/pubhtml?gid=382702241&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
         </div>
 
         <span class="panel-label">Master Viewing Calendar</span>
@@ -180,7 +186,7 @@
     </div>
 
     <header>
-        <div class="logo">Apex <span>Realty</span></div>
+        <div class="logo">Real <span>Estate</span></div>
         <button class="dev-btn" onclick="toggleBackend()">Access CRM (Dev)</button>
     </header>
 
@@ -285,18 +291,18 @@
     </section>
 
     <footer>
-        Powered by Apex Realty AI Automation.
+        Powered by AI Automation | Build v1.0.1
     </footer>
 
     <button class="chat-toggle" id="chatToggleBtn" onclick="toggleChat()">💬</button>
 
     <div class="chat-container" id="chatContainer">
         <div class="chat-header">
-            Sarah | Apex AI
+            Sarah | AI Assistant
             <button class="close-chat-btn" onclick="toggleChat()">×</button>
         </div>
         <div class="chat-box" id="chat-box">
-            <div class="msg bot">Hi there! 👋 I'm Sarah with Apex Realty. Are you looking to buy or rent a property today?</div>
+            <div class="msg bot">Hi there! 👋 I'm Sarah. Are you looking to buy or rent a property today?</div>
         </div>
         
         <div class="image-preview-container" id="image-preview-container">
