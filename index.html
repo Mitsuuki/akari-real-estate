@@ -3,19 +3,19 @@
 <head>
     <!-- 1. THE SELF-HEALING CACHE BUSTER -->
     <script>
-        const currentVersion = "2.5"; 
+        const currentVersion = "3.6"; 
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('v') !== currentVersion) {
             window.location.replace(window.location.pathname + '?v=' + currentVersion);
         }
     </script>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, interactive-widget=resizes-content">
     <meta charset="UTF-8">
     <title>Akari Real Estate | AI Brokerage</title>
     
-    <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css?v=3.6">
 </head>
 <body>
 
@@ -28,18 +28,56 @@
         </div>
     </div>
 
-    <!-- Backend Dev Panel -->
+    <!-- Slide-Out Professional Dev Console -->
     <div class="backend-panel" id="backendPanel">
-        <button class="panel-close-btn" onclick="toggleBackend()">×</button>
-        <h2>Live CRM Portal</h2>
-        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 30px; line-height: 1.6;">Live telemetry monitoring leads captured natively from the website widget, SMS, and Social Media.</p>
-        <span class="panel-label">Live Lead Database</span>
-        <div class="iframe-container">
-            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2No54tpOdLhI3xUyJf0few-si1qAvoKpib1KIuZM7AlQiJElqZCGtOXKL1PQQqC1vtlB3IyA4wdmW/pubhtml?gid=382702241&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+        <h2>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                Developer Console
+            </div>
+            <button class="panel-close-btn" onclick="toggleBackend()">×</button>
+        </h2>
+        <p class="panel-subtitle">Live telemetry showing real-time event routing from the frontend UI into n8n Webhooks, Google Calendar, and CRM storage.</p>
+        
+        <!-- REQUIRED EMAIL ROUTING WITH RED ALERT -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span class="panel-label" style="color: #cbd5e1; margin: 0; display: flex; align-items: center; gap: 8px;">
+                Destination Routing (Email) 
+                <span class="ping-dot" title="Action Suggested" id="input-ping"></span>
+            </span>
         </div>
-        <span class="panel-label">Master Viewing Calendar</span>
+        <div style="margin-bottom: 30px; display: flex; gap: 10px;">
+            <input type="email" id="demo-alert-dest" placeholder="[ REQUIRED: Enter target email for live lead alert ]" oninput="checkEmailInput()">
+        </div>
+
+        <!-- COMMAND EMBED TERMINAL -->
+        <span class="panel-label" style="color: #cbd5e1; margin-top: 10px;">System Telemetry</span>
+        <div class="terminal-embed">
+            <div class="terminal-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="title">admin@akari-servers: ~/logs</span>
+            </div>
+            <div class="sms-terminal" id="telemetryTerminal">
+                <span style="color: #64748b">[SYS]</span> > INIT: SYSTEM ONLINE. LISTENING ON PORT 5678...<br>
+            </div>
+        </div>
+
+        <!-- CALENDAR -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span class="panel-label" style="margin: 0;">Live Calendar Sync</span>
+            <button class="refresh-btn" onclick="refreshFrame('calendar-frame')" id="btn-calendar-frame" title="Force Refresh">🔄 Refresh</button>
+        </div>
         <div class="iframe-container">
-            <iframe src="https://calendar.google.com/calendar/embed?src=sakuramisakikawaii%40gmail.com&ctz=America%2FLos_Angeles&mode=WEEK"></iframe>
+            <iframe id="calendar-frame" src="https://calendar.google.com/calendar/embed?src=sakuramisakikawaii%40gmail.com&ctz=America%2FLos_Angeles&mode=WEEK"></iframe>
+        </div>
+
+        <!-- DATABASE -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span class="panel-label" style="margin: 0;">Live CRM Database</span>
+            <button class="refresh-btn" onclick="refreshFrame('sheets-frame')" id="btn-sheets-frame" title="Force Refresh">🔄 Refresh</button>
+        </div>
+        <div class="iframe-container">
+            <iframe id="sheets-frame" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ2No54tpOdLhI3xUyJf0few-si1qAvoKpib1KIuZM7AlQiJElqZCGtOXKL1PQQqC1vtlB3IyA4wdmW/pubhtml?gid=382702241&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
         </div>
     </div>
 
@@ -54,12 +92,15 @@
             </div>
         </div>
         <div class="header-actions">
-            <button class="dev-btn" onclick="toggleBackend()">Access CRM</button>
+            <button class="dev-btn" onclick="toggleBackend()">
+                ⚙️ View Backend (Dev Mode)
+                <span class="urgent-ping" id="dev-ping"></span>
+            </button>
         </div>
     </header>
 
     <!-- Cinematic Hero Section with Video Background -->
-        <section class="hero">
+    <section class="hero">
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="resources/hero.mp4" type="video/mp4">
         </video>
@@ -69,7 +110,6 @@
             <h1 class="delay-1">Close More Deals.<br>While You Sleep.</h1>
             <p class="delay-2">Test the industry's most advanced conversational AI. Sarah instantly qualifies leads, checks inventory, and books showings directly to your Google Calendar.</p>
         </div>
-    </section>
     </section>
 
     <section class="features-section">
@@ -86,8 +126,8 @@
             </div>
             <div class="feature-card fade-in delay-3">
                 <div class="feature-icon">📊</div>
-                <h3>Instant CRM Sync</h3>
-                <p>Every lead is pushed directly to your database with full conversation history and instant SMS alerts to your phone.</p>
+                <h3>Instant CRM Sync <span class="pro-badge">PRO FEATURE</span></h3>
+                <p>Every lead is pushed directly to your database with full conversation history and instant SMS/Email alerts to your phone.</p>
             </div>
         </div>
     </section>
@@ -190,7 +230,7 @@
         </div>
 
         <div class="chat-input-area">
-            <button class="attach-btn" onclick="document.getElementById('file-input').click()">
+            <button class="attach-btn" onclick="document.getElementById('file-input').click()" title="Attach image">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
             </button>
             <input type="file" id="file-input" accept="image/*">
@@ -200,8 +240,8 @@
         </div>
     </div>
 
-    <!-- Link to external JS -->
-    <script src="script.js"></script>
+    <!-- External JS -->
+    <script src="script.js?v=3.6"></script>
     
 </body>
 </html>

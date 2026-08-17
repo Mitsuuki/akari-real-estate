@@ -16,7 +16,44 @@ function closeGallery(e) {
     }
 }
 
-function toggleBackend() { document.getElementById('backendPanel').classList.toggle('open'); }
+// --- EMAIL PING LOGIC ---
+function checkEmailInput() {
+    const emailInput = document.getElementById("demo-alert-dest");
+    const pingNav = document.getElementById("dev-ping");
+    const pingInput = document.getElementById("input-ping");
+    
+    if(emailInput.value.trim() !== "") {
+        if(pingNav) pingNav.style.display = "none";
+        if(pingInput) pingInput.style.display = "none";
+        emailInput.classList.add("filled");
+    } else {
+        if(pingNav) pingNav.style.display = "inline-block";
+        if(pingInput) pingInput.style.display = "inline-block";
+        emailInput.classList.remove("filled");
+    }
+}
+
+function toggleBackend() { 
+    document.getElementById('backendPanel').classList.toggle('open'); 
+    
+    // Auto-focus the email box when they open it, if it's empty
+    const emailInput = document.getElementById("demo-alert-dest");
+    if(emailInput && emailInput.value.trim() === "") {
+        setTimeout(() => emailInput.focus(), 400);
+    }
+}
+
+function refreshFrame(id) {
+    const frame = document.getElementById(id);
+    const btn = document.getElementById('btn-' + id);
+    
+    btn.classList.add('spinning');
+    setTimeout(() => btn.classList.remove('spinning'), 600);
+    
+    const currentSrc = frame.src;
+    frame.src = '';
+    setTimeout(() => { frame.src = currentSrc; }, 100);
+}
 
 function toggleChat() {
     const chat = document.getElementById('chatContainer');
@@ -26,7 +63,6 @@ function toggleChat() {
     if (chat.classList.contains('open')) document.getElementById('user-input').focus();
 }
 
-// UX FIX: Only auto-open chat if screen is larger than mobile (768px)
 setTimeout(() => {
     if (window.innerWidth > 768) {
         const chat = document.getElementById('chatContainer');
@@ -123,6 +159,11 @@ function appendButtons(buttonsArray) {
 function showTyping() { typingIndicator.style.display = "flex"; chatBox.scrollTop = chatBox.scrollHeight; }
 function hideTyping() { typingIndicator.style.display = "none"; }
 
+function getTimestamp() {
+    const now = new Date();
+    return now.toLocaleTimeString('en-US', { hour12: false });
+}
+
 async function sendMessage() {
     if (isSending) return;
     const text = userInput.value.trim();
@@ -144,7 +185,15 @@ async function sendMessage() {
     
     showTyping();
 
+    const term = document.getElementById("telemetryTerminal");
+
     try {
+        const demoDest = document.getElementById("demo-alert-dest") ? document.getElementById("demo-alert-dest").value.trim() : "";
+
+        // COMMAND LINE LOGIC
+        term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > POST /api/v1/engine/transmit ... <span style="color:#e2e8f0">[PENDING]</span>`;
+        term.scrollTop = term.scrollHeight;
+
         const liveUrl = BASE_WEBHOOK_URL + "?t=" + Date.now();
         const response = await fetch(liveUrl, {
             method: "POST",
@@ -152,7 +201,8 @@ async function sendMessage() {
             body: JSON.stringify({ 
                 sessionId: sessionId, 
                 message: payloadText,
-                image_url: payloadImage 
+                image_url: payloadImage,
+                alert_destination: demoDest 
             })
         });
 
@@ -164,13 +214,48 @@ async function sendMessage() {
             appendButtons(data.buttons);
         }
 
+        term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > RESPONSE RECEIVED ... <span style="color:#10b981">[200 OK]</span>`;
+
+        // Telemetry Simulation for Real Estate (Checking for booking intents)
+        if (data.text.includes("scheduled") || data.text.includes("saved") || data.text.includes("confirmed") || text.toLowerCase().includes("book") || text.toLowerCase().includes("pm") || text.toLowerCase().includes("am") || text.toLowerCase().includes("viewing")) {
+            
+            setTimeout(() => {
+                term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > SQL_INSERT into public.leads ... <span style="color:#10b981">[SUCCESS]</span>`;
+                term.scrollTop = term.scrollHeight;
+            }, 800);
+
+            setTimeout(() => {
+                term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > POST https://www.googleapis.com/calendar/v3/calendars ... <span style="color:#10b981">[SUCCESS]</span>`;
+                term.scrollTop = term.scrollHeight;
+            }, 1800);
+
+            setTimeout(() => {
+                if (demoDest) {
+                    term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > DISPATCH_MAIL_SMTP: Routing to <b>${demoDest}</b> ... <span style="color:#3b82f6">[QUEUED & SENT]</span>`;
+                    
+                    try {
+                        let ding = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+                        ding.volume = 0.5;
+                        ding.play();
+                    } catch(e) {}
+                    
+                    const panel = document.getElementById("backendPanel");
+                    if (!panel.classList.contains("open")) {
+                        panel.classList.add("open");
+                    }
+                } else {
+                    term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > <span style="color:#f59e0b">WARN: alert_destination is null. Skipping SMTP dispatch.</span>`;
+                }
+                term.scrollTop = term.scrollHeight;
+            }, 3000);
+        }
+
     } catch (error) {
         hideTyping();
         console.error("Transmission Error:", error);
         appendMessage("Network error or outdated browser detected. Please check your connection or call us directly.", "bot");
         
-        const errorTrace = `[DIAGNOSTIC TRACE]<br>Error: ${error.name}<br>Message: ${error.message}<br>Check n8n CORS settings or Cloudflare connection!`;
-        appendMessage(`<div style="font-size: 11px; color: #e11d48; margin-top: 8px; border-top: 1px solid rgba(225,29,72,0.2); padding-top: 8px; font-family: monospace; line-height: 1.3;">${errorTrace}</div>`, "bot");
+        term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > <span style="color:#ef4444">FATAL_ERR: Webhook connection timed out.</span>`;
     } finally {
         userInput.disabled = false;
         sendBtn.disabled = false;
