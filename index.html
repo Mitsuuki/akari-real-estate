@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 1. THE SELF-HEALING CACHE BUSTER -->
+    <script>
+        const currentVersion = "2.0"; 
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('v') !== currentVersion) {
+            window.location.replace(window.location.pathname + '?v=' + currentVersion);
+        }
+    </script>
     
-    <!-- CACHE BUSTING TAGS -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <!-- 2. MOBILE ZOOM FIX -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, interactive-widget=resizes-content">
+    <meta charset="UTF-8">
     
     <!-- Meta Tags for iMessage/WhatsApp Link Sharing Preview -->
     <title>AI Automation | Live Demo Portal</title>
@@ -49,7 +54,7 @@
 
         /* BULLETPROOF HERO CSS */
         .hero { 
-            background-color: var(--primary); /* Permanent fallback color */
+            background-color: var(--primary); 
             background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.5), rgba(2, 6, 23, 0.95)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920'); 
             background-size: cover;
             background-position: center;
@@ -297,7 +302,6 @@
             
             <div class="property-card">
                 <div class="img-wrapper">
-                    <!-- FIXED BROKEN IMAGE LINK -->
                     <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600');">
                         <div class="status-badge">For Sale</div>
                     </div>
@@ -394,8 +398,8 @@
     </div>
 
     <script>
-        // --- YOUR NGROK URL ---
-        const N8N_WEBHOOK_URL = "https://helper-rubbing-refrain.ngrok-free.dev/webhook/apex-web-hub";
+        // --- BASE NGROK URL ---
+        const BASE_WEBHOOK_URL = "https://helper-rubbing-refrain.ngrok-free.dev/webhook/apex-web-hub";
 
         let currentImageBase64 = "";
         let isSending = false; 
@@ -531,7 +535,10 @@
             showTyping();
 
             try {
-                const response = await fetch(N8N_WEBHOOK_URL, {
+                // Dynamically add cache-busting timestamp on every request
+                const liveUrl = BASE_WEBHOOK_URL + "?t=" + Date.now();
+
+                const response = await fetch(liveUrl, {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",
@@ -554,7 +561,8 @@
 
             } catch (error) {
                 hideTyping();
-                appendMessage("System offline. Could not connect to backend.", "bot");
+                console.error("Transmission Error:", error);
+                appendMessage("Network error or outdated browser detected. Please check your connection or call us directly.", "bot");
             } finally {
                 userInput.disabled = false;
                 sendBtn.disabled = false;
