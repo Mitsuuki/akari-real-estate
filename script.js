@@ -1,5 +1,5 @@
 // --- 100% BULLETPROOF CLOUDFLARE URL ---
-const BASE_WEBHOOK_URL = "https://ships-generators-relative-wma.trycloudflare.com/webhook/apex-web-hub";
+const BASE_WEBHOOK_URL = "https://exercises-contracting-maternity-dealers.trycloudflare.com/webhook/apex-web-hub";
 
 let currentImageBase64 = "";
 let isSending = false; 
