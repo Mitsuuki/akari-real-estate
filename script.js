@@ -1,18 +1,23 @@
 // --- 100% BULLETPROOF CLOUDFLARE URL ---
-const N8N_WEBHOOK_URL = 'https://problems-llp-third-neo.trycloudflare.com/webhook/real-estate-chat';
+const N8N_WEBHOOK_URL = 'https://problems-llp-third-neo.trycloudflare.com/webhook/apex-web-hub';
 
 let currentImageBase64 = "";
 let isSending = false; 
 
 // Lightbox Functions
 function openGallery(imgSrc, caption) {
-    document.getElementById('lightbox-img').src = imgSrc;
-    document.getElementById('lightbox-caption').innerText = caption;
-    document.getElementById('lightbox').classList.add('active');
+    const imgEl = document.getElementById('lightbox-img');
+    const capEl = document.getElementById('lightbox-caption');
+    const boxEl = document.getElementById('lightbox');
+    if (imgEl) imgEl.src = imgSrc;
+    if (capEl) capEl.innerText = caption;
+    if (boxEl) boxEl.classList.add('active');
 }
+
 function closeGallery(e) {
     if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
-        document.getElementById('lightbox').classList.remove('active');
+        const boxEl = document.getElementById('lightbox');
+        if (boxEl) boxEl.classList.remove('active');
     }
 }
 
@@ -22,23 +27,23 @@ function checkEmailInput() {
     const pingNav = document.getElementById("dev-ping");
     const pingInput = document.getElementById("input-ping");
     
-    if(emailInput.value.trim() !== "") {
-        if(pingNav) pingNav.style.display = "none";
-        if(pingInput) pingInput.style.display = "none";
+    if (emailInput && emailInput.value.trim() !== "") {
+        if (pingNav) pingNav.style.display = "none";
+        if (pingInput) pingInput.style.display = "none";
         emailInput.classList.add("filled");
-    } else {
-        if(pingNav) pingNav.style.display = "inline-block";
-        if(pingInput) pingInput.style.display = "inline-block";
+    } else if (emailInput) {
+        if (pingNav) pingNav.style.display = "inline-block";
+        if (pingInput) pingInput.style.display = "inline-block";
         emailInput.classList.remove("filled");
     }
 }
 
 function toggleBackend() { 
-    document.getElementById('backendPanel').classList.toggle('open'); 
+    const panel = document.getElementById('backendPanel');
+    if (panel) panel.classList.toggle('open'); 
     
-    // Auto-focus the email box when they open it, if it's empty
     const emailInput = document.getElementById("demo-alert-dest");
-    if(emailInput && emailInput.value.trim() === "") {
+    if (emailInput && emailInput.value.trim() === "") {
         setTimeout(() => emailInput.focus(), 400);
     }
 }
@@ -47,29 +52,34 @@ function refreshFrame(id) {
     const frame = document.getElementById(id);
     const btn = document.getElementById('btn-' + id);
     
-    btn.classList.add('spinning');
-    setTimeout(() => btn.classList.remove('spinning'), 600);
+    if (btn) {
+        btn.classList.add('spinning');
+        setTimeout(() => btn.classList.remove('spinning'), 600);
+    }
     
-    const currentSrc = frame.src;
-    frame.src = '';
-    setTimeout(() => { frame.src = currentSrc; }, 100);
+    if (frame) {
+        const currentSrc = frame.src;
+        frame.src = '';
+        setTimeout(() => { frame.src = currentSrc; }, 100);
+    }
 }
 
 function toggleChat() {
     const chat = document.getElementById('chatContainer');
     const toggleBtn = document.getElementById('chatToggleBtn');
-    chat.classList.toggle('open');
-    toggleBtn.classList.toggle('hidden');
-    if (chat.classList.contains('open')) document.getElementById('user-input').focus();
+    const input = document.getElementById('user-input');
+    if (chat) chat.classList.toggle('open');
+    if (toggleBtn) toggleBtn.classList.toggle('hidden');
+    if (chat && chat.classList.contains('open') && input) input.focus();
 }
 
 setTimeout(() => {
     if (window.innerWidth > 768) {
         const chat = document.getElementById('chatContainer');
         const toggleBtn = document.getElementById('chatToggleBtn');
-        if (!chat.classList.contains('open')) {
+        if (chat && !chat.classList.contains('open')) {
             chat.classList.add('open');
-            toggleBtn.classList.add('hidden');
+            if (toggleBtn) toggleBtn.classList.add('hidden');
         }
     }
 }, 2000);
@@ -77,38 +87,49 @@ setTimeout(() => {
 function openChatWithPrefill(text) {
     const chat = document.getElementById('chatContainer');
     const toggleBtn = document.getElementById('chatToggleBtn');
-    chat.classList.add('open');
-    toggleBtn.classList.add('hidden');
+    if (chat) chat.classList.add('open');
+    if (toggleBtn) toggleBtn.classList.add('hidden');
     const input = document.getElementById('user-input');
-    input.value = text;
-    input.style.height = "auto";
-    input.style.height = (input.scrollHeight) + "px";
-    input.focus();
+    if (input) {
+        input.value = text;
+        input.style.height = "auto";
+        input.style.height = (input.scrollHeight) + "px";
+        input.focus();
+    }
 }
 
 const userInput = document.getElementById("user-input");
-userInput.addEventListener("input", function() {
-    this.style.height = "auto";
-    this.style.height = (this.scrollHeight) + "px";
-});
+if (userInput) {
+    userInput.addEventListener("input", function() {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+    });
+}
 
-document.getElementById('file-input').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        currentImageBase64 = event.target.result;
-        document.getElementById('image-preview-container').style.display = 'block';
-        document.getElementById('image-preview-img').src = currentImageBase64;
-        document.getElementById('user-input').focus();
-    };
-    reader.readAsDataURL(file);
-});
+const fileInputEl = document.getElementById('file-input');
+if (fileInputEl) {
+    fileInputEl.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            currentImageBase64 = event.target.result;
+            const prevContainer = document.getElementById('image-preview-container');
+            const prevImg = document.getElementById('image-preview-img');
+            if (prevContainer) prevContainer.style.display = 'block';
+            if (prevImg) prevImg.src = currentImageBase64;
+            if (userInput) userInput.focus();
+        };
+        reader.readAsDataURL(file);
+    });
+}
 
 function removeImage() {
     currentImageBase64 = "";
-    document.getElementById('image-preview-container').style.display = 'none';
-    document.getElementById('file-input').value = "";
+    const prevContainer = document.getElementById('image-preview-container');
+    const fileInput = document.getElementById('file-input');
+    if (prevContainer) prevContainer.style.display = 'none';
+    if (fileInput) fileInput.value = "";
 }
 
 const sessionId = "session_" + Math.floor(Math.random() * 1000000000);
@@ -117,23 +138,33 @@ const sendBtn = document.getElementById("send-btn");
 const typingIndicator = document.getElementById("typing-indicator");
 
 function appendMessage(text, sender) {
+    if (!chatBox) return;
     const msgDiv = document.createElement("div");
     msgDiv.className = `msg ${sender}`;
     msgDiv.innerHTML = text; 
-    chatBox.insertBefore(msgDiv, typingIndicator);
+    if (typingIndicator) {
+        chatBox.insertBefore(msgDiv, typingIndicator);
+    } else {
+        chatBox.appendChild(msgDiv);
+    }
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function appendImageMessage(base64Str) {
+    if (!chatBox) return;
     const msgDiv = document.createElement("div");
     msgDiv.className = `msg user-img`;
     msgDiv.innerHTML = `<img src="${base64Str}">`; 
-    chatBox.insertBefore(msgDiv, typingIndicator);
+    if (typingIndicator) {
+        chatBox.insertBefore(msgDiv, typingIndicator);
+    } else {
+        chatBox.appendChild(msgDiv);
+    }
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function appendButtons(buttonsArray) {
-    if (!buttonsArray || buttonsArray.length === 0) return;
+    if (!buttonsArray || buttonsArray.length === 0 || !chatBox) return;
     const container = document.createElement("div");
     container.style.display = "flex";
     container.style.flexDirection = "column";
@@ -146,27 +177,50 @@ function appendButtons(buttonsArray) {
         btn.innerText = btnText;
         btn.onclick = () => {
             container.style.display = "none";
-            userInput.value = btnText;
-            userInput.style.height = "auto";
+            if (userInput) {
+                userInput.value = btnText;
+                userInput.style.height = "auto";
+            }
             sendMessage();
         };
         container.appendChild(btn);
     });
-    chatBox.insertBefore(container, typingIndicator);
+    
+    if (typingIndicator) {
+        chatBox.insertBefore(container, typingIndicator);
+    } else {
+        chatBox.appendChild(container);
+    }
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function showTyping() { typingIndicator.style.display = "flex"; chatBox.scrollTop = chatBox.scrollHeight; }
-function hideTyping() { typingIndicator.style.display = "none"; }
+function showTyping() { 
+    if (typingIndicator && chatBox) {
+        typingIndicator.style.display = "flex"; 
+        chatBox.scrollTop = chatBox.scrollHeight; 
+    }
+}
+
+function hideTyping() { 
+    if (typingIndicator) typingIndicator.style.display = "none"; 
+}
 
 function getTimestamp() {
     const now = new Date();
     return now.toLocaleTimeString('en-US', { hour12: false });
 }
 
+function logTerminal(message) {
+    const term = document.getElementById("telemetryTerminal");
+    if (term) {
+        term.innerHTML += message;
+        term.scrollTop = term.scrollHeight;
+    }
+}
+
 async function sendMessage() {
     if (isSending) return;
-    const text = userInput.value.trim();
+    const text = userInput ? userInput.value.trim() : "";
     if (!text && !currentImageBase64) return;
 
     isSending = true;
@@ -177,24 +231,22 @@ async function sendMessage() {
     const payloadText = text;
     const payloadImage = currentImageBase64;
 
-    userInput.value = "";
-    userInput.style.height = "auto";
+    if (userInput) {
+        userInput.value = "";
+        userInput.style.height = "auto";
+        userInput.disabled = true;
+    }
     removeImage();
-    userInput.disabled = true;
-    sendBtn.disabled = true;
+    if (sendBtn) sendBtn.disabled = true;
     
     showTyping();
-
-    const term = document.getElementById("telemetryTerminal");
 
     try {
         const demoDest = document.getElementById("demo-alert-dest") ? document.getElementById("demo-alert-dest").value.trim() : "";
 
-        // COMMAND LINE LOGIC
-        term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > POST /api/v1/engine/transmit ... <span style="color:#e2e8f0">[PENDING]</span>`;
-        term.scrollTop = term.scrollHeight;
+        logTerminal(`<br><span style="color: #64748b">[${getTimestamp()}]</span> > POST /api/v1/engine/transmit ... <span style="color:#e2e8f0">[PENDING]</span>`);
 
-        const liveUrl = BASE_WEBHOOK_URL + "?t=" + Date.now();
+        const liveUrl = N8N_WEBHOOK_URL + "?t=" + Date.now();
         const response = await fetch(liveUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -206,32 +258,45 @@ async function sendMessage() {
             })
         });
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
         hideTyping();
-        appendMessage(data.text || "Sorry, I encountered an error.", "bot");
+        
+        const responseText = data.text || data.output || data.message || "Sorry, I encountered an error.";
+        appendMessage(responseText, "bot");
         
         if (data.buttons) {
             appendButtons(data.buttons);
         }
 
-        term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > RESPONSE RECEIVED ... <span style="color:#10b981">[200 OK]</span>`;
+        logTerminal(`<br><span style="color: #64748b">[${getTimestamp()}]</span> > RESPONSE RECEIVED ... <span style="color:#10b981">[200 OK]</span>`);
 
-        // Telemetry Simulation for Real Estate (Checking for booking intents)
-        if (data.text.includes("scheduled") || data.text.includes("saved") || data.text.includes("confirmed") || text.toLowerCase().includes("book") || text.toLowerCase().includes("pm") || text.toLowerCase().includes("am") || text.toLowerCase().includes("viewing")) {
-            
+        const textToCheck = (typeof responseText === 'string' ? responseText : '').toLowerCase();
+        const userTextToCheck = (payloadText || '').toLowerCase();
+        
+        const isBooking = textToCheck.includes("scheduled") || 
+                          textToCheck.includes("saved") || 
+                          textToCheck.includes("confirmed") || 
+                          userTextToCheck.includes("book") || 
+                          userTextToCheck.includes("pm") || 
+                          userTextToCheck.includes("am") || 
+                          userTextToCheck.includes("viewing");
+
+        if (isBooking) {
             setTimeout(() => {
-                term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > SQL_INSERT into public.leads ... <span style="color:#10b981">[SUCCESS]</span>`;
-                term.scrollTop = term.scrollHeight;
+                logTerminal(`<br><span style="color: #64748b">[${getTimestamp()}]</span> > SQL_INSERT into public.leads ... <span style="color:#10b981">[SUCCESS]</span>`);
             }, 800);
 
             setTimeout(() => {
-                term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > POST https://www.googleapis.com/calendar/v3/calendars ... <span style="color:#10b981">[SUCCESS]</span>`;
-                term.scrollTop = term.scrollHeight;
+                logTerminal(`<br><span style="color: #64748b">[${getTimestamp()}]</span> > POST https://www.googleapis.com/calendar/v3/calendars ... <span style="color:#10b981">[SUCCESS]</span>`);
             }, 1800);
 
             setTimeout(() => {
                 if (demoDest) {
-                    term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > DISPATCH_MAIL_SMTP: Routing to <b>${demoDest}</b> ... <span style="color:#3b82f6">[QUEUED & SENT]</span>`;
+                    logTerminal(`<br><span style="color: #64748b">[${getTimestamp()}]</span> > DISPATCH_MAIL_SMTP: Routing to <b>${demoDest}</b> ... <span style="color:#3b82f6">[QUEUED & SENT]</span>`);
                     
                     try {
                         let ding = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
@@ -240,13 +305,12 @@ async function sendMessage() {
                     } catch(e) {}
                     
                     const panel = document.getElementById("backendPanel");
-                    if (!panel.classList.contains("open")) {
+                    if (panel && !panel.classList.contains("open")) {
                         panel.classList.add("open");
                     }
                 } else {
-                    term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > <span style="color:#f59e0b">WARN: alert_destination is null. Skipping SMTP dispatch.</span>`;
+                    logTerminal(`<br><span style="color: #64748b">[${getTimestamp()}]</span> > <span style="color:#f59e0b">WARN: alert_destination is null. Skipping SMTP dispatch.</span>`);
                 }
-                term.scrollTop = term.scrollHeight;
             }, 3000);
         }
 
@@ -254,12 +318,13 @@ async function sendMessage() {
         hideTyping();
         console.error("Transmission Error:", error);
         appendMessage("Network error or outdated browser detected. Please check your connection or call us directly.", "bot");
-        
-        term.innerHTML += `<br><span style="color: #64748b">[${getTimestamp()}]</span> > <span style="color:#ef4444">FATAL_ERR: Webhook connection timed out.</span>`;
+        logTerminal(`<br><span style="color: #64748b">[${getTimestamp()}]</span> > <span style="color:#ef4444">FATAL_ERR: Webhook connection failed.</span>`);
     } finally {
-        userInput.disabled = false;
-        sendBtn.disabled = false;
-        userInput.focus();
+        if (userInput) {
+            userInput.disabled = false;
+            userInput.focus();
+        }
+        if (sendBtn) sendBtn.disabled = false;
         isSending = false; 
     }
 }
